@@ -1,3 +1,7 @@
+from scipy.cluster.hierarchy import dendrogram, linkage
+from matplotlib import pyplot as plt
+import numpy as np
+
 class Tree:
     def __init__(self, name, children):
         self.name = name
@@ -26,6 +30,37 @@ class Tree:
                 return min(len(distance1), len(distance2)) - index, min(len(distance1), len(distance2))
 
         return 0, min(len(distance1), len(distance2))
+
+def save_tree(tree, clustAlg, matrix):
+    with open(clustAlg + '_newick.txt', 'w') as f:
+        f.write(get_newick(tree, "", tree.dist, matrix.index))
+    return
+
+def plot_hierarchy(hierarchy, matrix):
+    plt.figure(num=None, figsize=(8,6), dpi=160)
+    plt.rc('ytick', labelsize=8)
+    dendrogram(hierarchy,
+               orientation='top',
+               labels=matrix.index,
+               distance_sort='descending',
+               color_threshold=40)
+    plt.show()
+    return
+
+def get_newick(node, newick, parentdist, leaf_names):
+    if node.is_leaf():
+        return "%s:%.2f%s" % (leaf_names[node.id], parentdist - node.dist, newick)
+    else:
+        if len(newick) > 0:
+            newick = "):%.2f%s" % (parentdist - node.dist, newick)
+        else:
+            newick = ");"
+        newick = get_newick(node.get_left(), newick, node.dist, leaf_names)
+        newick = get_newick(node.get_right(), ",%s" % (newick), node.dist, leaf_names)
+        newick = "(%s" % (newick)
+        return newick
+
+
 
 trueTree = Tree('chordata', [
     Tree('Squamata', [
