@@ -27,7 +27,7 @@ def main():
     data = load_data('filename')
     clusterMethod = 'get user input'
     clusterResults = clustering(clusterMethod)
-    grade = cluster_grader(clusterResults) # will also create a plot comparing clustering grade to random clustering
+    grade = cluster_grader(clusterResults) 
     plot_trees() ## can be repeated for multiple clustering methods if necessary, will print true tree and cluster based tree
     return
 

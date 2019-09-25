@@ -190,7 +190,7 @@ def grade_within_cluster(labels):
     for label1 in labels:
         for label2 in labels:
             # print(pylogeneticTree.distance_between_nodes(label1, label2))
-            a, m = pylogeneticTree.distance_between_nodes(label1, label2)
+            a, m = trueTree.distance_between_nodes(label1, label2)
             actual += a
             max += m
 
@@ -201,7 +201,7 @@ def grade(labels, clusters):
     # Adjusted Rand index grading:
     labels_true = []
     for name in labels:
-        true_cluster = pylogeneticTree.path_to_node(name, [])[1]
+        true_cluster = trueTree.path_to_node(name, [])[1]
         if true_cluster == 'Aves':
             labels_true.append(0)
         elif true_cluster == 'Squamata':
@@ -210,9 +210,9 @@ def grade(labels, clusters):
             labels_true.append(2)
         else:
             labels_true.append(3)
-    
+
     adj_rand = metrics.adjusted_rand_score(labels_true, clusters)
-    
+
     # Custom Grading: Evaluate based on tree distance
     labels_split_by_clusters = {}
     for label, cluster in zip(labels, clusters):
