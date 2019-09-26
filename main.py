@@ -1,6 +1,6 @@
 import load_data as ld
 import cluster as cl
-    
+
 def import_functions():
     ## importing all our other things that we write
     """
@@ -22,14 +22,11 @@ def import_functions():
 
 
     """
-    
-    
-    
     pass
-
 
 def main():
     import_functions()
+
     clusterMethod = 'get user input'
     
     true_tree = ld.TrueTree().load_true_tree('FundamentalsProgramming/trueTree.phy')
