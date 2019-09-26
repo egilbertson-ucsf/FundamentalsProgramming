@@ -29,8 +29,8 @@ def main():
 
     clusterMethod = 'get user input'
     
-    true_tree = ld.TrueTree().load_true_tree('FundamentalsProgramming/trueTree.phy')
-    data = ld.CNVData().readCNVMatrix('FundamentalsProgramming/LS_blastn_Gar_noDenom.txt')
+    true_tree = ld.TrueTree().load_true_tree('data/phyliptree.phy')
+    data = ld.CNVData().readCNVMatrix('data/LS_blastn_Gar_noDenom.txt')
     trees,random_trees = cl.Cluster().cluster(data,'ward')
     
     grade = cluster_grader(clusterResults) 
