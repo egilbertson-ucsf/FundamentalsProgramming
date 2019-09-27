@@ -69,6 +69,7 @@ class Cluster:
                 
 
         """
+        
         ## try to load the method.
         if method:
             try:
