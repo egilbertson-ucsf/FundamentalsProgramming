@@ -79,7 +79,7 @@ def get_pred_labels(species, tree, clust_id):
 
     return labels
 
-def grade(species, trees, random_trees, true_tree):
+def grade(species, trees, random_trees,clust_ids,random_clust_ids,true_tree):
     """
     This function first determines the ground truth class assignments
     and stores them in the list labels_true.
