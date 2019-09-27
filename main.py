@@ -22,10 +22,11 @@ def import_functions():
 
 
     """
-    import cluster_grading.grade as cg
+    from cluster_grading import grade as cg
     from phylotree import plot_trees
     import load_data as ld
     import cluster as cl
+    import pylotree as plt
 
 def main():
     import_functions()
@@ -37,8 +38,10 @@ def main():
     trees,random_trees,clust_ids, random_clust_ids = cl.Cluster().cluster(data,cluster_method)
 
     ari_clusters, ari_random = cg(data.index, trees, random_trees, clust_ids,random_clust_ids,true_tree)
-    plot_trees() ## can be repeated for multiple clustering methods if necessary, will print true tree and cluster based tree
-    return
+    ac=pd.Series(ari_clusters)
+    plt.plot_trees(true_tree, trees[ac.idxmax()])
+    plt.plot_dist(ari_random, ari_cluster)
 
+    return
 if __name__ == '__main__':
     main()

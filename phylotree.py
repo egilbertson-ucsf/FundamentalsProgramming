@@ -1,6 +1,8 @@
 import Bio.Phylo as bp
 import matplotlib.pyplot as plt
 import pandas as pd
+import seaborn as sns
+
 def plot_trees(true_tree, best_clust_tree):
     print('True Tree')
     bp.draw_ascii(true_tree)
@@ -10,6 +12,13 @@ def plot_trees(true_tree, best_clust_tree):
 
 
 def plot_dist(random, cluster):
-    data = pd.DataFrame(random).join(cluster)
-    plt.boxplot(data=data)
+    rand = pd.Series(ari_random)
+    clust = pd.Series(ari_clusters)
+    dist = pd.DataFrame(pd.concat([rand,clust], axis=1))
+    dist.columns = ['Random','Clustered']
+
+    sns.boxplot(x="variable", y="value", data=pd.melt(dist))
+    plt.ylabel('Adjusted Rand Index')
+    plt.xlabel('Method')
+    plt.show()
     return
