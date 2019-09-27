@@ -27,10 +27,12 @@ def main():
                                  help="Specify the number of bootstrap resamplings of the data matrix. Default is 100.")
 
     
-    argument_parser.add_argument("-l","--list",action='store_true',dest='list_methods',
+    argument_parser.add_argument("-l","--list",action='store_true',dest='list_methods',default=False,
                                  help="Lists available clustering methods / distance metrics")
     ## Parse arguments
     args = argument_parser.parse_args()
+    
+    print(args.method)
     
     if args.list_methods:
         cobj = cl.Cluster()
@@ -45,7 +47,7 @@ def main():
         data = ld.CNVData().readCNVMatrix('data/LS_blastn_Gar_noDenom.txt')
 
         print("Clustering and reconstructing phylogeny...")
-        trees, random_trees, clust_ids, random_clust_ids = cl.Cluster().cluster(data,args.method[0],args.metric,args.n_bootstraps)
+        trees, random_trees, clust_ids, random_clust_ids = cl.Cluster().cluster(data,args.method,args.metric,args.n_bootstraps)
 
         print("Scoring clusters...")
         ari_clusters, ari_random = cg(data.index, trees, random_trees, clust_ids,random_clust_ids,true_tree)
