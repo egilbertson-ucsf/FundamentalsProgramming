@@ -12,8 +12,8 @@ def plot_trees(true_tree, best_clust_tree):
 
 
 def plot_dist(random, cluster):
-    rand = pd.Series(ari_random)
-    clust = pd.Series(ari_clusters)
+    rand = pd.Series(random)
+    clust = pd.Series(cluster)
     dist = pd.DataFrame(pd.concat([rand,clust], axis=1))
     dist.columns = ['Random','Clustered']
 
