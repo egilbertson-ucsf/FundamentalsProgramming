@@ -11,7 +11,7 @@ def lookup_by_clades(tree):
 
     Input:
         tree (Bio.Phylo tree): Phylogenetic tree of interest
-        
+
     Output:
         clades (dict): Dictionary with keys of clade names and value the content of the Clade object
         having that clade name.
@@ -64,7 +64,7 @@ def get_pred_labels(species, tree, clust_id):
     Inputs:
         species(list): List of reptile species
         tree(Bio.Phylo tree): simulated tree
-        clust_id(int): An integer between 0 and 3. Serves as an initial guess. Obtained from cutting simulated 
+        clust_id(int): An integer between 0 and 3. Serves as an initial guess. Obtained from cutting simulated
                        cluster.
 
     Outputs:
@@ -104,11 +104,11 @@ def grade(species, trees, random_trees, true_tree):
     Outputs:
     ari_clusters (list): List of adjusted Rand indices, one for each of the bootstrap simulation.
     ari_random (list): List of adjusted Rand indices, one for each random simulation.
-    
+
     """
-    
+
     labels_true = get_true_labels(species, true_tree)
-            
+
     ari_clusters = []
     ari_random = []
 
@@ -125,11 +125,11 @@ def grade(species, trees, random_trees, true_tree):
             correct_value = col_ind[j]
             labels_pred = [correct_value if x==j else x for x in labels_pred]
         ari_cluster = metrics.adjusted_rand_score(labels_true, labels_pred)
-                          
+
         i += 1
         ari_clusters.append(ari_cluster)
-                
-        
+
+
     i = 0
     for random_tree in random_trees:
         random_clust_id = random_clust_ids[i]
@@ -143,14 +143,12 @@ def grade(species, trees, random_trees, true_tree):
             correct_value = col_ind[j]
             labels_rand = [correct_value if x==j else x for x in labels_rand]
         ari_rand = metrics.adjusted_rand_score(labels_true, labels_rand)
-                                                                                                                        
+
         i += 1
         ari_random.append(ari_rand)
 
 
     return ari_clusters, ari_random
 
-species_list = data.index
-ari_clusters, ari_random = grade(species_list, trees, random_trees, true_tree)
-
-        
+# species_list = data.index
+# ari_clusters, ari_random = grade(species_list, trees, random_trees, true_tree)

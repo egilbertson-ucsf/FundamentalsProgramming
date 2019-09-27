@@ -22,18 +22,21 @@ def import_functions():
 
 
     """
-    pass
+    import cluster_grading.grade as cg
+    from phylotree import plot_trees
+    import load_data as ld
+    import cluster as cl
 
 def main():
     import_functions()
 
-    clusterMethod = 'get user input'
-    
+    cluster_method = str(input('Choose a clustering method from [single, complete, average, weighted, ward, median, centroid]: '))
+
     true_tree = ld.TrueTree().load_true_tree('data/phyliptree.phy')
     data = ld.CNVData().readCNVMatrix('data/LS_blastn_Gar_noDenom.txt')
-    trees,random_trees = cl.Cluster().cluster(data,'ward')
-    
-    grade = cluster_grader(clusterResults) 
+    trees,random_trees = cl.Cluster().cluster(data,cluster_method)
+
+    ari_clusters, ari_random = cg(data.index, trees, random_trees, true_tree)
     plot_trees() ## can be repeated for multiple clustering methods if necessary, will print true tree and cluster based tree
     return
 
