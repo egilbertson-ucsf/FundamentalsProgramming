@@ -2,6 +2,7 @@ import Bio.Phylo as bp
 import matplotlib.pyplot as plt
 import pandas as pd
 import seaborn as sns
+import scipy
 
 def plot_trees(true_tree, best_clust_tree):
 
@@ -26,7 +27,7 @@ def plot_dist(random, cluster):
     Function to boxplot the distributions of our clustering method (*100) scores
     next to random clustering scores
 
-    Input: two lists of adjusted rand index scores 
+    Input: two lists of adjusted rand index scores
     Product: boxplot
 
     no returned object
@@ -36,7 +37,9 @@ def plot_dist(random, cluster):
     dist = pd.DataFrame(pd.concat([rand,clust], axis=1))
     dist.columns = ['Random','Clustered']
 
-    sns.boxplot(x="variable", y="value", data=pd.melt(dist))
+    sns.boxplot(x="variable", y="value", data=pd.melt(dist), color='white')
+    sns.stripplot(x='variable', y='value', data=pd.melt(dist), jitter=0.2, size=10, palette='winter', linewidth=1)
+    plt.title(scipy.stats.mannwhitneyu(rand,clust))
     plt.ylabel('Adjusted Rand Index')
     plt.xlabel('Method')
     plt.show()
