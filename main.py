@@ -34,9 +34,9 @@ def main():
 
     true_tree = ld.TrueTree().load_true_tree('data/phyliptree.phy')
     data = ld.CNVData().readCNVMatrix('data/LS_blastn_Gar_noDenom.txt')
-    trees,random_trees = cl.Cluster().cluster(data,cluster_method)
+    trees,random_trees,clust_ids, random_clust_ids = cl.Cluster().cluster(data,cluster_method)
 
-    ari_clusters, ari_random = cg(data.index, trees, random_trees, true_tree)
+    ari_clusters, ari_random = cg(data.index, trees, random_trees, clust_ids,random_clust_ids,true_tree)
     plot_trees() ## can be repeated for multiple clustering methods if necessary, will print true tree and cluster based tree
     return
 
