@@ -23,24 +23,24 @@ def main():
                                  help="Specify the distance metric used. Ex. 'euclidean'")
 
     ## Add argument for bootstraps
-    argument_parser.add_argument("-b","--bootstraps", dest='n_bootstraps',default=100,
+    argument_parser.add_argument("-b","--bootstraps", type= int, dest='n_bootstraps',default=100,
                                  help="Specify the number of bootstrap resamplings of the data matrix. Default is 100.")
 
-    
+
     argument_parser.add_argument("-l","--list",action='store_true',dest='list_methods',default=False,
                                  help="Lists available clustering methods / distance metrics")
     ## Parse arguments
     args = argument_parser.parse_args()
-    
+
     print(args.method)
-    
+
     if args.list_methods:
         cobj = cl.Cluster()
         print("Available Methods:")
         print("    "+", ".join(cobj.available_methods))
         print("Available Distance Metrics:")
         print("    "+", ".join(cobj.available_metrics))
-        
+
     else:
         print("Loading data...")
         true_tree = ld.TrueTree().load_true_tree('data/phyliptree.phy')
@@ -59,6 +59,6 @@ def main():
 
     exit()
     return
-  
+
 if __name__ == '__main__':
     main()
