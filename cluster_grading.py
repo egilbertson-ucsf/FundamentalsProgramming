@@ -3,13 +3,6 @@ import numpy as np
 import Bio.Phylo as bp
 from scipy.optimize import linear_sum_assignment
 
-import load_data as ld
-import cluster as cl
-
-true_tree = ld.TrueTree().load_true_tree('phyliptree.phy')
-data = ld.CNVData().readCNVMatrix('LS_blastn_Gar_noDenom.txt')
-trees, random_trees, clust_ids, random_clust_ids = cl.Cluster().cluster(data, 'complete')
-
 def lookup_by_clades(tree):
     """
     Creates a dictionary of clades within a Bio.Phylo tree. The keys to the dictionary are
@@ -159,5 +152,5 @@ def grade(species, trees, random_trees, true_tree):
 
 species_list = data.index
 ari_clusters, ari_random = grade(species_list, trees, random_trees, true_tree)
-print(ari_clusters, ari_random)
+
         
