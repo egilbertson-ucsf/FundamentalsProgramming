@@ -13,7 +13,7 @@ class Cluster:
         self.available_methods = ['single','complete','average',
                                   'weighted','ward','median','centroid']
         
-    def cluster(self,data,method=None):
+    def cluster(self,data,n_bootstraps=100,method=None,distance_metric='Euclidean'):
         """   
         Function to use 
 
@@ -36,11 +36,13 @@ class Cluster:
             
             boot_tree, boot_clust_id = self.cluster_single(data.sample(data.shape[1],replace=True,axis=1),method)
             
+            ## Append bootstrapped tree and cluster ID to required lists 
             self.trees.append(boot_tree)
             self.clust_ids.append(boot_clust_id)
             
             rand_tree, rand_clust_id = self.cluster_single(self.generate_random(rand,val_max,num_zeroes),method)
             
+            ## Append random tree and cluster ID to required lists
             self.random_trees.append(rand_tree)
             self.random_clust_ids.append(rand_clust_id)
                     
