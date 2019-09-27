@@ -26,7 +26,7 @@ def import_functions():
     from phylotree import plot_trees
     import load_data as ld
     import cluster as cl
-    import pylotree as plt
+    import phylotree as plt
 
 def main():
     import_functions()
