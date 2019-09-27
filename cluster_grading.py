@@ -123,7 +123,7 @@ def grade(species, trees, random_trees, true_tree):
         row_ind, col_ind = linear_sum_assignment(test_array)
         for j in row_ind:
             correct_value = col_ind[j]
-            labels_pred = [correct_value if x==correct_value else x for x in labels_pred]
+            labels_pred = [correct_value if x==j else x for x in labels_pred]
         ari_cluster = metrics.adjusted_rand_score(labels_true, labels_pred)
                           
         i += 1
@@ -141,7 +141,7 @@ def grade(species, trees, random_trees, true_tree):
         row_ind, col_ind = linear_sum_assignment(test_array)
         for j in row_ind:
             correct_value = col_ind[j]
-            labels_rand = [correct_value if x==correct_value else x for x in labels_rand]
+            labels_rand = [correct_value if x==j else x for x in labels_rand]
         ari_rand = metrics.adjusted_rand_score(labels_true, labels_rand)
                                                                                                                         
         i += 1
