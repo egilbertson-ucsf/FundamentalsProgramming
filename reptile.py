@@ -23,7 +23,7 @@ def main():
                                  help="Specify the distance metric used. Ex. 'euclidean'")
 
     ## Add argument for bootstraps
-    argument_parser.add_argument("-b","--bootstraps", type= int, dest='n_bootstraps',default=100,
+    argument_parser.add_argument("-b","--bootstraps", type= int, dest='n_bootstraps',default=50,
                                  help="Specify the number of bootstrap resamplings of the data matrix. Default is 100.")
 
 
