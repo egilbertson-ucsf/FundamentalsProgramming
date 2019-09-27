@@ -1,36 +1,15 @@
+from cluster_grading import grade as cg
+from phylotree import plot_trees
 import load_data as ld
 import cluster as cl
-
-def import_functions():
-    ## importing all our other things that we write
-    """
-    External files to write
-
-    data loading:
-        read in data matrix and clean up naming etc.
-
-    clustering:
-        given a clustering method/s do clustering algorithm specified on data matrix
-        output
-
-    cluster gradings:
-        grade cluster tree compared to true tree
-
-    trees:
-        tree class
-        tree plotting
-
-
-    """
-    import cluster_grading.grade as cg
-    from phylotree import plot_trees
-    import load_data as ld
-    import cluster as cl
-    import argparse
-
+import phylotree as plt
+import scipy.cluster as sc
+from io import StringIO
+import numpy as np
+import Bio.Phylo as bp
+import pandas as pd
 
 def main():
-    
     argument_parser=argparse.ArgumentParser()
 
     ## Add argument for clustering method
@@ -48,19 +27,21 @@ def main():
     ## Parse arguments
     args = argument_parser.parse_args()
     
-    
-    import_functions()
-
-   
     true_tree = ld.TrueTree().load_true_tree('data/phyliptree.phy')
     data = ld.CNVData().readCNVMatrix('data/LS_blastn_Gar_noDenom.txt')
-    
-    
+   
     trees, random_trees, clust_ids, random_clust_ids = cl.Cluster().cluster(data,args.method,args.metric,args.bootstraps)
 
     ari_clusters, ari_random = cg(data.index, trees, random_trees, clust_ids,random_clust_ids,true_tree)
-    plot_trees() ## can be repeated for multiple clustering methods if necessary, will print true tree and cluster based tree
-    return
 
+    ari_clusters, ari_random = cg(data.index, trees, random_trees, clust_ids,random_clust_ids,true_tree)
+    ac=pd.Series(ari_clusters)
+    plt.plot_trees(true_tree, trees[ac.idxmax()])
+    plt.plot_dist(ari_random, ari_clusters)
+
+    exit()
+    return
+  
+  
 if __name__ == '__main__':
     main()
