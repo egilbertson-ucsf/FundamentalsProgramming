@@ -142,7 +142,7 @@ def grade(species, trees, random_trees,clust_ids,random_clust_ids,true_tree):
         for j in row_ind:
             correct_value = col_ind[j]
             labels_rand = [correct_value if x==j else x for x in labels_rand]
-        ari_rand = metrics.adjusted_rand_score(labels_true, labels_rand)
+        ari_random = metrics.adjusted_rand_score(labels_true, labels_rand)
 
         i += 1
         ari_random.append(ari_rand)
